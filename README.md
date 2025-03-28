@@ -1,16 +1,36 @@
-# crossword
+## Giới thiệu chung
 
-A new Flutter project.
+Crossword là một ứng dụng giải ô chữ thú vị, kết hợp giữa giải trí và rèn luyện tư duy. Repository trình bày một hệ thống Crossword được xây dựng bằng Flutter và hệ thống tạo các ải chơi bằng Python.
 
-## Getting Started
+**Phần hệ thống trò chơi**
+Gồm các chức năng sau:
+- Đăng nhập, đăng ký
+- Chọn chế độ chơi
+- Chọn ải chơi
+- Xem bảng xếp hạng
+- Thực hiện các màn chơi
 
-This project is a starting point for a Flutter application.
+### 1️⃣ Màn hình chính  
+![Màn hình chính](figures/home.png)
 
-A few resources to get you started if this is your first Flutter project:
+### 2️⃣ Màn hình đăng nhập  
+![Màn hình đăng nhập](figures/login.png)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### 3️⃣ Chọn cấp độ  
+![Chọn cấp độ](figures/choose_level.png)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### 4️⃣ Chọn màn chơi  
+![Chọn màn chơi](figures/choose_stage.png)
+
+### 5️⃣ Màn chơi  
+![Màn chơi](figures/game_play.png)
+
+### 6️⃣ Xếp hạng  
+![Bảng xếp hạng](figures/rank.png)
+
+### 7️⃣ Giao diện web  
+![Giao diện web](figures/web.png)
+
+
+
+
