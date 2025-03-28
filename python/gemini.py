@@ -5,7 +5,7 @@ import concurrent.futures
 
 import utils
 
-genai.configure(api_key="AIzaSyDoe6nwEYu7_AidAUkFw_ivu6WzB6cePeg")
+genai.configure(api_key="api_key")
 model = genai.GenerativeModel("gemini-1.5-flash")
 
 def get_clue(word,topic):

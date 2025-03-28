@@ -5,9 +5,12 @@ from firebase_admin import firestore
 import utils
 import gemini
 
-cred = credentials.Certificate('/kaggle/input/firebase-database/crossword-e69bd-firebase-adminsdk-3p5qr-3bef568e5c.json')
+cred = credentials.Certificate('crossword-e69bd-firebase-adminsdk-3p5qr-3bef568e5c.json')
 firebase_admin.initialize_app(cred)
 db = firestore.client()
+
+def get_database():
+    return db
 
 def add_stage(questions,grid,stage,topic,isChallenge):
     try:
@@ -66,3 +69,39 @@ def delete_all_documents(collection_name):
         doc.reference.delete()
         count += 1
     print(f"✅ Đã xóa {count} tài liệu trong collection '{collection_name}'.")
+
+def update_stage(old_stage,new_stage):
+    collection_ref = db.collection("stage")
+    docs = collection_ref.where("stage", "==", old_stage).stream()
+
+    batch = db.batch()
+    updated = False
+
+    for doc in docs:
+        doc_ref = collection_ref.document(doc.id)
+        batch.update(doc_ref, {"stage": new_stage})
+        updated = True
+
+    if updated:
+        batch.commit()
+        print("Cập nhật thành công!")
+    else:
+        print("Không tìm thấy tài liệu nào có stage = 0")
+
+def update_question_stage(old_stage,new_stage):
+    collection_ref = db.collection("question")
+    docs = collection_ref.where("stage", "==", old_stage).stream()
+
+    batch = db.batch()
+    updated = False
+
+    for doc in docs:
+        doc_ref = collection_ref.document(doc.id)
+        batch.update(doc_ref, {"stage": new_stage})
+        updated = True
+
+    if updated:
+        batch.commit()
+        print("Cập nhật thành công!")
+    else:
+        print("Không tìm thấy tài liệu nào có stage = 0")

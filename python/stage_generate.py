@@ -79,3 +79,18 @@ def create_crossword_level(topic: Optional[str] = None, grid: int = 10,stage: in
     questions,answers = utils.sort_questions(questions,answers)
     database.add_stage(questions,grid,stage,topic,isChallenge = isChallenge)
     database.add_question(answers,questions,stage,topic)
+
+def create_challenge_stage(topic: Optional[str] = None):
+    
+    stages_ref = database.get_database().collection('stage')
+    stage = len(list(stages_ref.stream()))
+
+    print(stage)
+
+    database.update_stage(0,stage)
+    database.update_question_stage(0,stage)
+    
+    questions,answers,topic = crossword_generator(grid = 13,topic=topic)
+    questions,answers = utils.sort_questions(questions,answers)
+    database.add_stage(questions,13,0,topic,isChallenge = True)
+    database.add_question(answers,questions,0,topic)

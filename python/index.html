@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crossword Generator</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h2>🔤 Tạo Ô Chữ Thử Thách</h2>
+        <p>Nhập thông tin để tạo một ô chữ theo yêu cầu!</p>
+
+        <div class="form-group">
+            <label>📌 Ải số*:</label>
+            <input type="number" id="stage" required placeholder="Nhập số stage...">
+        </div>
+
+        <div class="form-group">
+            <label>📏 Kích thước lưới*:</label>
+            <input type="number" id="grid" required placeholder="Nhập kích thước lưới...">
+        </div>
+
+        <div class="form-group">
+            <label>🎨 Chủ đề:</label>
+            <input type="text" id="topic" placeholder="Ví dụ: các loài hoa">
+        </div>
+        
+        <div class="form-group switch-group">
+            <label>🏆 Chế độ thử thách:</label>
+            <label class="switch">
+                <input type="checkbox" id="isChallenge">
+                <span class="slider round"></span>
+            </label>
+        </div>
+
+        <button class="btn" onclick="generateCrossword()">🚀 Tạo Ô Chữ</button>
+
+        <div id="crossword-container"></div>
+    </div>
+
+    <!-- Loading Animation -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+        <p>⏳ Đang tạo ô chữ...</p>
+    </div>
+
+    <!-- Dialog báo lỗi -->
+    <div id="error-dialog" class="error-dialog">
+        <div class="error-box">
+            <p id="dialog-message"></p>
+            <button id="close-dialog">Đóng</button>
+        </div>
+    </div>
+
+    <div id="success-dialog" class="success-dialog">
+        <div class="success-box">
+            <p id="success-message"></p>
+            <button id="close-success-dialog">OK</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
