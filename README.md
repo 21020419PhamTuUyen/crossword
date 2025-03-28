@@ -24,6 +24,12 @@ Gồm các chức năng sau:
 ## Phần hệ thống tạo ải
 Quản trị viên sẽ nhập vào số ải, chủ đề (nếu có), kích thước và chế độ, hệ thống sẽ dựa vào các thông tin được cung cấp để tạo ải theo yêu cầu. Nội dung các ải được tạo thành bởi AI Gemini, hệ sẽ gửi các yêu cầu cho AI, nhận về kết quả xử lý để tạo thành một ải hoàn chỉnh
 
-**Giao diện web**  
-![Giao diện web](figures/web.png) 
+**Giao diện hệ thống tạo ải**  
+![Giao diện hệ thống tạo ải](figures/web.png) 
 
+Các bước chạy hệ thống:
+1. Clone repository
+2. cd python
+3. chạy lệch `python app` trong terminal
+4. tạo Terminal mới và chạy `python -m http.server 8000`
+5. mở trang web tại `localhost:8000`
