@@ -21,6 +21,9 @@ class UserInfoCubit extends Cubit<BaseState> {
     try {
       emit(LoadingState());
       UserModel userModel = await repository.getUserInfo(token);
+      if(userModel.id == null){
+        userModel.id = token;
+      }
       emit(LoadedState(userModel));
     } catch (e) {
       emit(ErrorState(BlocUtils.getMessageError(e)));

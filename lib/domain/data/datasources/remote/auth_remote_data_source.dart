@@ -19,9 +19,20 @@ class AuthRemoteDataSource {
       UserCredential credential = await _auth.signInWithEmailAndPassword(
           email: userModel.email!, password: userModel.password!);
       if (credential.user != null) {
+        QuerySnapshot<Map<String, dynamic>> querySnapshot =
+        await FirebaseFirestore.instance
+            .collection('user')
+            .where('email', isEqualTo: credential.user?.email)
+            .get();
+        UserModel userModel = UserModel();
+        if (querySnapshot.docs.isNotEmpty) {
+          DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
+              querySnapshot.docs.first;
+          userModel = UserModel.fromSnapshot(documentSnapshot);
+        }
         return {
           'status': ResponseStatus.response200Ok,
-          'data': credential.user?.email,
+          'data': userModel,
         };
       } else {
         return {
@@ -49,9 +60,20 @@ class AuthRemoteDataSource {
         await FirebaseFirestore.instance
             .collection('user')
             .add(user.toMap());
+        QuerySnapshot<Map<String, dynamic>> querySnapshot =
+        await FirebaseFirestore.instance
+            .collection('user')
+            .where('email', isEqualTo: user.email)
+            .get();
+        UserModel userModel = UserModel();
+        if (querySnapshot.docs.isNotEmpty) {
+          DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
+              querySnapshot.docs.first;
+          userModel = UserModel.fromSnapshot(documentSnapshot);
+        }
         return {
           'status': ResponseStatus.response201Created,
-          'data': user,
+          'data': userModel,
         };
       } else {
         return {
@@ -110,6 +132,10 @@ class AuthRemoteDataSource {
       if (e.code == ExceptionCode.invalidCredential) {
         return {
           'status': ResponseStatus.response401Unauthorized,
+        };
+      }else if(e.code == ExceptionCode.otherCredential) {
+        return {
+          'status': 'Tài khoản đã được đăng ký ở nền tảng khác',
         };
       } else {
         return {

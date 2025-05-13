@@ -166,8 +166,9 @@ class _GamePlayScreenState extends State<GamePlayBody> {
                                   onPressed: () {
                                     if (game.suggestion != null && game.suggestion! > 0) {
                                       String text = findText(game);
-                                      game.isDoneIndex!.add(game.currentSelectedIndex ?? 0);
+                                      int temp = game.currentSelectedIndex ?? 0;
                                       onTextInput(text,game,context);
+                                      game.isDoneIndex!.add(temp);
                                       int suggestion = game.suggestion ?? 0;
                                       suggestion -= 1;
                                       game.suggestion = suggestion;

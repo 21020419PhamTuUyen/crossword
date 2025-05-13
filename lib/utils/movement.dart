@@ -214,7 +214,7 @@ onTextInput(String text, GameStateModel state, BuildContext context) {
       state.stage!.questions![indexDone].done = true;
       state.isDoneIndex = state.isDoneIndex!.toSet().toList();
       state.isDoneQuestion!.add(indexDone + 1);
-      if (state.stage!.isChallenge!) {
+      if (state.stage?.isChallenge ?? false) {
         final _state = getIt.get<UserInfoCubit>().state;
         if (_state is LoadedState<UserModel>) {
           UserModel user = _state.data;

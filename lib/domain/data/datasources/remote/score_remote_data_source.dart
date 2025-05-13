@@ -34,8 +34,6 @@ class ScoreRemoteDataSource {
           .collection(collectionScore)
           .where('user_id', isEqualTo: user.id)
           .get();
-      print(user.id);
-      print(querySnapshot.size);
       Map<String, dynamic> updatedData = {
         'user_id': user.id,
         'username': user.username,

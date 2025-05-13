@@ -5,7 +5,7 @@ import concurrent.futures
 
 import utils
 
-genai.configure(api_key="api_key")
+genai.configure(api_key="AIzaSyDoe6nwEYu7_AidAUkFw_ivu6WzB6cePeg")
 model = genai.GenerativeModel("gemini-1.5-flash")
 
 def get_clue(word,topic):
@@ -25,6 +25,7 @@ def get_topic():
     try:
         response = model.generate_content(f"đưa ra các chủ đề ngẫu nhiên cho trò chơi crossword (chỉ in đậm tên chủ đề)")
     except Exception as e:
+        print(e)
         return []
     topics = re.findall(r"\*\*(.*?)\*\*", response.text)
     topics = [word.lower() for word in topics]

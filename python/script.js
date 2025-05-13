@@ -30,6 +30,11 @@ async function generateCrossword() {
         return;
     }
 
+    if(!isChallenge && stage == 0){
+        showErrorDialog("⚠️ Ải thường không được để là ải 0");
+        return;
+    }
+
     document.getElementById("loading-overlay").style.display = "flex"; // Hiện loading
 
     try {

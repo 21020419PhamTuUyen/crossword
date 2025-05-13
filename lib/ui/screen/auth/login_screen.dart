@@ -226,7 +226,7 @@ class _LoginScreenState extends State<LoginBody> {
 
   void _handleLogin() {
     UserModel user = UserModel();
-    user.email = _emailController.text;
+    user.email = _emailController.text.trim();
     user.password = _passwordController.text;
     var validator = user.loginValidate(context);
     if (validator != ResponseStatus.response200Ok) {

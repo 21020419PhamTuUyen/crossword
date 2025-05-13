@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">crossword</string>
+    <string name="facebook_app_id">669668282555812</string>
+    <string name="fb_login_protocol_scheme">fb669668282555812</string>
+    <string name="facebook_client_token">cb5f9060c4d91ff0ae00223ec93968c5</string>
+
+
+</resources>

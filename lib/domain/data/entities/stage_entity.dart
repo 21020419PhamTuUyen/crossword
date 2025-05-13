@@ -77,4 +77,29 @@ class StageEntity {
       'topic': topic
     };
   }
+
+  bool isSameInputCell(StageEntity other) {
+    return _deepListEquals(this.inputCell, other.inputCell);
+  }
+
+  /// So sánh List<List<int>> hoặc List<List<dynamic>> tuỳ dữ liệu
+  bool _deepListEquals(List? a, List? b) {
+    if (a == null || b == null) return a == b;
+    if (a.length != b.length) return false;
+    for (int i = 0; i < a.length; i++) {
+      if (!_listEquals(a[i], b[i])) return false;
+    }
+    return true;
+  }
+
+  /// So sánh List<int> hoặc List<dynamic>
+  bool _listEquals(List? a, List? b) {
+    if (a == null || b == null) return a == b;
+    if (a.length != b.length) return false;
+    for (int i = 0; i < a.length; i++) {
+      if (a[i] != b[i]) return false;
+    }
+    return true;
+  }
+
 }

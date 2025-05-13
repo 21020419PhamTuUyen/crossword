@@ -8,21 +8,21 @@ class ScoreEntity {
   ScoreEntity();
 
   ScoreEntity.fromJson(Map<String, dynamic> json) {
-    userId = json['userId'];
+    userId = json['user_id'];
     username = json['username'];
     score = json['score'];
   }
 
   ScoreEntity.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> snapshot) {
     final data = snapshot.data()!;
-    userId = data['userId'];
+    userId = data['user_id'];
     username = data['username'];
     score = data['score'];
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'userId': userId,
+      'user_id': userId,
       'username': username,
       'score': score,
     };
@@ -30,7 +30,7 @@ class ScoreEntity {
 
   Map<String, dynamic> toMap() {
     return {
-      'userId': userId,
+      'user_id': userId,
       'username': username,
       'score': score,
     };

@@ -18,57 +18,66 @@ def create_letter_matrix(grid):
     matrix = np.full((grid, grid), '-')  # Tạo ma trận với toàn bộ giá trị là '-'
     return matrix
 
+def sort_list(list_word, list_rm_vn_word):
+    combined = sorted(zip(list_word,list_rm_vn_word), key=lambda x: len(x[1]))
+
+    list1,list2 = zip(*combined)
+
+    return list1,list2
 
 def crossword_generator(topic: Optional[str] = None, grid: int = 10):
     
     list_word, rm_vn_list_word,topic = word_generate.word_generator(topic = topic,grid=grid)
+    # list_word,rm_vn_list_word = sort_list(list_word, rm_vn_list_word)
     matrix = create_letter_matrix(grid)
-
     
     print('Đang tạo ma trận...')
-    word = word_generate.get_word(list_word, rm_vn_list_word)
-    utils.insert_letters_row(matrix,0,word[1],0)
-    question = [list(range(1, len(word[1]) + 1))]
-    space_list = [(0,len(word[1]))]
-    answer = [word]
-
     
-    while len(list_word) > 0:
-            word = word_generate.get_word(list_word, rm_vn_list_word)
-            found = False 
-            for index, letter in enumerate(word[1]):
-                if found:  # Nếu từ đã được chèn, thoát khỏi vòng lặp chính
-                    break
-                for x in range(grid):
-                    if found:  # Nếu từ đã được chèn, thoát khỏi vòng lặp x
+    question = []
+
+    while len(question) < 4:
+        word = word_generate.get_word(list_word, rm_vn_list_word)
+        word = [list_word[0],rm_vn_list_word[0]]
+        utils.insert_letters_row(matrix,0,word[1],0)
+        question = [list(range(1, len(word[1]) + 1))]
+        space_list = [(0,len(word[1]))]
+        answer = [word]
+        while len(list_word) > 0:
+                word = word_generate.get_word(list_word, rm_vn_list_word)
+                found = False 
+                for index, letter in enumerate(word[1]):
+                    if found:  # Nếu từ đã được chèn, thoát khỏi vòng lặp chính
                         break
-                    for y in range(grid):
-                        if matrix[x][y] == letter:
-                            dupl = utils.check_duplicate_index(question,grid*x + y + 1)
-                            if(dupl['count'] <= 1):
-                                placement, ok = utils.can_place(word[1], matrix, x, y, index,dupl['direction'],space_list)
-                                if ok:
-                                    if placement['direction'] == 0:
-                                        utils.insert_letters_row(matrix, placement['x'], word[1], placement['y'])
-                                        question.append(list(range(grid*placement['x'] + placement['y'] + 1,grid*(placement['x']) + placement['y'] + 1 + len(word[1]))))
-                                        answer.append(word)
-                                        space_list.append((placement['x'],placement['y'] - 1))
-                                        space_list.append((placement['x'],placement['y'] + len(word[1])))
-                                    elif placement['direction'] == 1:
-                                        utils.insert_letters_col(matrix, placement['y'], word[1], placement['x'])
-                                        question.append(list(range(grid*placement['x'] + placement['y'] + 1,grid*(placement['x'] + len(word[1])) + placement['y'] + 1,grid)))
-                                        answer.append(word)
-                                        space_list.append((placement['x'] - 1,placement['y']))
-                                        space_list.append((placement['x'] + len(word[1]),placement['y']))
-                                    found = True  # Đặt cờ để báo hiệu thoát vòng lặp
-                                    break
-                        if found:  # Nếu từ đã được chèn, thoát khỏi vòng lặp y
+                    for x in range(grid):
+                        if found:  # Nếu từ đã được chèn, thoát khỏi vòng lặp x
                             break
-                    if found:  # Nếu từ đã được chèn, thoát khỏi vòng lặp x
+                        for y in range(grid):
+                            if matrix[x][y] == letter:
+                                dupl = utils.check_duplicate_index(question,grid*x + y + 1)
+                                if(dupl['count'] <= 1):
+                                    placement, ok = utils.can_place(word[1], matrix, x, y, index,dupl['direction'],space_list)
+                                    if ok:
+                                        if placement['direction'] == 0:
+                                            utils.insert_letters_row(matrix, placement['x'], word[1], placement['y'])
+                                            question.append(list(range(grid*placement['x'] + placement['y'] + 1,grid*(placement['x']) + placement['y'] + 1 + len(word[1]))))
+                                            answer.append(word)
+                                            space_list.append((placement['x'],placement['y'] - 1))
+                                            space_list.append((placement['x'],placement['y'] + len(word[1])))
+                                        elif placement['direction'] == 1:
+                                            utils.insert_letters_col(matrix, placement['y'], word[1], placement['x'])
+                                            question.append(list(range(grid*placement['x'] + placement['y'] + 1,grid*(placement['x'] + len(word[1])) + placement['y'] + 1,grid)))
+                                            answer.append(word)
+                                            space_list.append((placement['x'] - 1,placement['y']))
+                                            space_list.append((placement['x'] + len(word[1]),placement['y']))
+                                        found = True  # Đặt cờ để báo hiệu thoát vòng lặp
+                                        break
+                            if found:  # Nếu từ đã được chèn, thoát khỏi vòng lặp y
+                                break
+                        if found:  # Nếu từ đã được chèn, thoát khỏi vòng lặp x
+                            break
+                    if found:  # Nếu từ đã được chèn, thoát khỏi vòng lặp chính
                         break
-                if found:  # Nếu từ đã được chèn, thoát khỏi vòng lặp chính
-                    break
-        
+            
     print(matrix)
     return question,answer,topic
 

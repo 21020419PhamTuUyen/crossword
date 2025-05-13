@@ -18,7 +18,8 @@ class AuthCubit extends Cubit<BaseState> {
       await repositoryImpl
           .login(userModel).then((value) async {
         if (value['status'] == ResponseStatus.response200Ok) {
-          emit(LoadedState(userModel));
+          await SharedPreferenceUtil.saveToken(value['data'].id);
+          emit(LoadedState(value['data']));
         }else{
           emit(ErrorState(BlocUtils.getMessageError(value['status'])));
         }
@@ -34,8 +35,8 @@ class AuthCubit extends Cubit<BaseState> {
       await repositoryImpl
           .register(userModel).then((value) async {
         if (value['status'] == ResponseStatus.response201Created) {
-          await SharedPreferenceUtil.saveToken(userModel.id!);
-          emit(LoadedState(userModel));
+          await SharedPreferenceUtil.saveToken(value['data'].id);
+          emit(LoadedState(value['data']));
         } else {
           emit(ErrorState(BlocUtils.getMessageError(value['status'])));
         }

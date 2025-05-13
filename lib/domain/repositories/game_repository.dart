@@ -16,28 +16,43 @@ class GameRepository {
   });
 
   Future<GameStateModel> getState(StageModel stage) async {
-    GameStateModel? game;
-    UserModel? user;
-    game = await localDataSource.getState(stage.stage!);
-    final _state = getIt.get<UserInfoCubit>().state;
-    if(_state is LoadedState<UserModel>){
-      user = _state.data;
-    }
+    try {
+      GameStateModel? game;
+      UserModel? user;
 
-    game ??= GameStateModel()
-      ..id = 1
-      ..stage = stage
-      ..currentSelectedIndex = stage.inputCell[0][0]
-      ..currentSelectedQuestion = checkInputCell(stage.inputCell, stage.inputCell[0][0])
-      ..isHorizontal = true
-      ..answers = generateAnswers(stage)
-      ..isDoneIndex = []
-      ..isDoneQuestion = []
-      ..suggestion = user?.suggestion ?? 0
-      ..seconds = 0
-      ..isWin = false;
-    return game;
+      game = await localDataSource.getState(stage.stage!);
+      final _state = getIt.get<UserInfoCubit>().state;
+
+      if (_state is LoadedState<UserModel>) {
+        user = _state.data;
+      }
+
+      print(game?.stage!.isSameInputCell(stage));
+
+      if(game != null && game.stage != null && game.stage!.isSameInputCell(stage)){
+        return game;
+      }
+
+      game = GameStateModel()
+        ..id = 1
+        ..stage = stage
+        ..currentSelectedIndex = stage.inputCell[0][0]
+        ..currentSelectedQuestion = checkInputCell(stage.inputCell, stage.inputCell[0][0])
+        ..isHorizontal = true
+        ..answers = generateAnswers(stage)
+        ..isDoneIndex = []
+        ..isDoneQuestion = []
+        ..suggestion = user?.suggestion ?? 0
+        ..seconds = 0
+        ..isWin = false;
+
+      return game;
+    } catch (e) {
+      print('Error in getState: $e');
+      return Future.error(e);
+    }
   }
+
 
 
 

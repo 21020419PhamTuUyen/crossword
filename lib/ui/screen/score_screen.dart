@@ -34,6 +34,7 @@ class ScoreBody extends StatefulWidget {
 class _ScoreScreenState extends State<ScoreBody> {
   late UserModel user;
   List<ScoreModel> rankingList = [];
+  String? stt = 'Not found';
 
   @override
   void initState() {
@@ -48,6 +49,9 @@ class _ScoreScreenState extends State<ScoreBody> {
       );
       Navigator.pushNamedAndRemoveUntil(context, Routes.mainScreen,(route) => false);
     }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      findUserPositionString();
+    });
   }
 
 
@@ -61,15 +65,20 @@ class _ScoreScreenState extends State<ScoreBody> {
     );
   }
 
-  String findUserPositionString() {
-    int position = rankingList.indexWhere((player) => player.userId == user.id);
-    if (position == -1) {
-      return "Not found";
-    } else if (position >= 100) {
-      return "50+";
-    } else {
-      return (position + 1).toString();
+  void findUserPositionString() {
+    for(var i in rankingList){
+      print(i.userId);
     }
+    int position = rankingList.indexWhere((player) => player.userId == user.id);
+    String r = '';
+    if (position == -1) {
+      r =  "Not found";
+    } else if (position >= 100) {
+      r =  "50+";
+    } else {
+      r = (position + 1).toString();
+    }
+      stt = r;
   }
 
   @override
@@ -81,6 +90,7 @@ class _ScoreScreenState extends State<ScoreBody> {
             builder: (_, state) {
               if (state is LoadedState<List<ScoreModel>>) {
                 rankingList = state.data;
+                findUserPositionString();
               }
               return Container(
                 color: Colors.blue[200],
@@ -164,7 +174,7 @@ class _ScoreScreenState extends State<ScoreBody> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                commonText(findUserPositionString()),
+                                commonText(stt),
                                 commonText(user.username),
                                 commonText(user.score.toString()),
                               ],
