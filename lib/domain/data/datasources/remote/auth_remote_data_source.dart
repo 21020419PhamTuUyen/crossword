@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crossword/domain/data/datasources/remote/score_remote_data_source.dart';
 import 'package:crossword/domain/data/models/score_model.dart';
@@ -20,10 +19,10 @@ class AuthRemoteDataSource {
           email: userModel.email!, password: userModel.password!);
       if (credential.user != null) {
         QuerySnapshot<Map<String, dynamic>> querySnapshot =
-        await FirebaseFirestore.instance
-            .collection('user')
-            .where('email', isEqualTo: credential.user?.email)
-            .get();
+            await FirebaseFirestore.instance
+                .collection('user')
+                .where('email', isEqualTo: credential.user?.email)
+                .get();
         UserModel userModel = UserModel();
         if (querySnapshot.docs.isNotEmpty) {
           DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
@@ -57,14 +56,12 @@ class AuthRemoteDataSource {
       UserCredential credential = await _auth.createUserWithEmailAndPassword(
           email: user.email!, password: user.password!);
       if (credential.user != null) {
-        await FirebaseFirestore.instance
-            .collection('user')
-            .add(user.toMap());
+        await FirebaseFirestore.instance.collection('user').add(user.toMap());
         QuerySnapshot<Map<String, dynamic>> querySnapshot =
-        await FirebaseFirestore.instance
-            .collection('user')
-            .where('email', isEqualTo: user.email)
-            .get();
+            await FirebaseFirestore.instance
+                .collection('user')
+                .where('email', isEqualTo: user.email)
+                .get();
         UserModel userModel = UserModel();
         if (querySnapshot.docs.isNotEmpty) {
           DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
@@ -133,7 +130,7 @@ class AuthRemoteDataSource {
         return {
           'status': ResponseStatus.response401Unauthorized,
         };
-      }else if(e.code == ExceptionCode.otherCredential) {
+      } else if (e.code == ExceptionCode.otherCredential) {
         return {
           'status': 'Tài khoản đã được đăng ký ở nền tảng khác',
         };
@@ -147,7 +144,12 @@ class AuthRemoteDataSource {
 
   Future<Map<String, dynamic>> signInWithGoogle() async {
     try {
-      final googleUser = await GoogleSignIn().signIn();
+      final GoogleSignIn googleSignIn = GoogleSignIn(
+        serverClientId:
+            "930197604365-c7b2jsdt0da8n92kquk73jnvqdts43l4.apps.googleusercontent.com",
+      );
+
+      final googleUser = await googleSignIn.signIn();
       final googleAuth = await googleUser?.authentication;
       final googleAuthCredential = GoogleAuthProvider.credential(
           idToken: googleAuth?.idToken, accessToken: googleAuth?.accessToken);

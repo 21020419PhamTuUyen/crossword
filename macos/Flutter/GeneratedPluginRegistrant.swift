@@ -15,7 +15,7 @@ import flutter_secure_storage_macos
 import google_sign_in_ios
 import path_provider_foundation
 import shared_preferences_foundation
-import sqflite_darwin
+import sqflite
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   AudioplayersDarwinPlugin.register(with: registry.registrar(forPlugin: "AudioplayersDarwinPlugin"))

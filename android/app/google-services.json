@@ -12,7 +12,36 @@
           "package_name": "com.example.crossword"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "930197604365-265una77th9tvmfgscs4g7q47eo2g7ar.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.crossword",
+            "certificate_hash": "eb64f13b1fce9baf21b771da72ad04748938b43a"
+          }
+        },
+        {
+          "client_id": "930197604365-eom09na9ech6pevqtbopl3t0nl3meubs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.crossword",
+            "certificate_hash": "30c1b2fdfb087a91b69191c397ecd1f973b8a252"
+          }
+        },
+        {
+          "client_id": "930197604365-v7s8pe49dgjtqivtodua2p00grsju583.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.crossword",
+            "certificate_hash": "b2b01c8bbfaf160c2381e2614be03842d0ea6095"
+          }
+        },
+        {
+          "client_id": "930197604365-c7b2jsdt0da8n92kquk73jnvqdts43l4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyC-BrF7pxaNlyED1wWzHfibl5Xn49gy8Qk"
@@ -20,7 +49,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "930197604365-c7b2jsdt0da8n92kquk73jnvqdts43l4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "930197604365-jpec5sv2a8qj13f7mjh0u4pkf668t9f9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.crossword"
+              }
+            }
+          ]
         }
       }
     }
